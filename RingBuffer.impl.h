@@ -1,5 +1,5 @@
 /*
- *   Copyright (C) 2020 by Jonathan Naylor G4KLX
+ *   Copyright (C) 2020,2026 by Jonathan Naylor G4KLX
  *   Copyright (C) 2020 by Geoffrey Merck F4FXL - KC3FRA
  *
  *   This program is free software; you can redistribute it and/or modify
@@ -56,7 +56,7 @@ template <typename TDATATYPE> uint16_t CRingBuffer<TDATATYPE>::getData() const
     return m_length - m_tail + m_head;
 }
 
-template <typename TDATATYPE> bool CRingBuffer<TDATATYPE>::put(TDATATYPE item) volatile
+template <typename TDATATYPE> bool CRingBuffer<TDATATYPE>::put(const TDATATYPE& item) volatile
 {
   if (m_full) {
     m_overflow = true;

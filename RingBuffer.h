@@ -1,5 +1,5 @@
 /*
- *   Copyright (C) 2020 by Jonathan Naylor G4KLX
+ *   Copyright (C) 2020,2026 by Jonathan Naylor G4KLX
  *   Copyright (C) 2020 by Geoffrey Merck F4FXL - KC3FRA
  *
  *   This program is free software; you can redistribute it and/or modify
@@ -50,7 +50,7 @@ public:
   
   uint16_t getData() const;
 
-  bool put(TDATATYPE item) volatile;
+  bool put(const TDATATYPE& item) volatile;
 
   bool get(TDATATYPE& item) volatile;
 
