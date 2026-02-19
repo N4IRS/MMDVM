@@ -1,5 +1,5 @@
 /*
- *   Copyright (C) 2015,2016,2017,2018,2020,2021,2023,2025 by Jonathan Naylor G4KLX
+ *   Copyright (C) 2015,2016,2017,2018,2020,2021,2023,2025,2026 by Jonathan Naylor G4KLX
  *   Copyright (C) 2015 by Jim Mclaughlin KI6ZUM
  *   Copyright (C) 2016 by Colin Durbridge G4EML
  *
@@ -554,9 +554,9 @@ void CIO::process()
     else if (m_modemState == STATE_FM) {
       bool cos = getCOSInt();
 #if defined(USE_DCBLOCKER)
-      fm.samples(cos, dcSamples, RX_BLOCK_SIZE);
+      fm.samples(cos, dcSamples, rssi, RX_BLOCK_SIZE);
 #else
-      fm.samples(cos, samples, RX_BLOCK_SIZE);
+      fm.samples(cos, samples, rssi, RX_BLOCK_SIZE);
 #endif
     }
 #endif
