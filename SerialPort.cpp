@@ -745,7 +745,7 @@ void CSerialPort::setMode(MMDVM_STATE modemState)
       DEBUG1("Mode set to FM 20Khz Calibrate");
       break;
     case STATE_FMCAL25K:
-      DEBUG1("Mode set to FM 10Khz Calibrate");
+      DEBUG1("Mode set to FM 25Khz Calibrate");
       break;
     case STATE_FMCAL30K:
       DEBUG1("Mode set to FM 30Khz Calibrate");
