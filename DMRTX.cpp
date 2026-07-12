@@ -84,7 +84,8 @@ m_frameCount(0U),
 m_abortCount(),
 m_abort(),
 m_controlChannel(false),
-m_trunking(false)
+m_trunking(false),
+m_colorCode(0U)
 {
   ::memset(m_modState, 0x00U, 16U * sizeof(q15_t));
 
@@ -227,6 +228,12 @@ uint8_t CDMRTX::writeAloha(const uint8_t* data, uint16_t length)
     return 4U;
 
   ::memcpy(m_aloha, data, length);
+
+  // Stamp the slot type with the current colour code so that the result
+  // doesn't depend on the ordering of the ALOHA and SET_CONFIG commands.
+  CDMRSlotType slotType;
+  slotType.encode(m_colorCode, DT_CSBK, m_aloha);
+
   m_controlChannel = true;
 
   return 0U;
@@ -386,7 +393,7 @@ void CDMRTX::createCACH(uint8_t txSlotIndex, uint8_t rxSlotIndex)
         ::memcpy(m_shortLC, EMPTY_SHORT_LC, 12U);
     } else {
       ::memcpy(m_shortLC, m_newShortLC, 12U);
-	}
+    }
   }
 
   ::memcpy(m_poBuffer, m_shortLC + m_cachPtr, 3U);
@@ -426,6 +433,8 @@ void CDMRTX::createCACH(uint8_t txSlotIndex, uint8_t rxSlotIndex)
 
 void CDMRTX::setColorCode(uint8_t colorCode)
 {
+  m_colorCode = colorCode;
+
   if (m_trunking)
     ::memcpy(m_idle, TERMINATOR_DATA, DMR_FRAME_LENGTH_BYTES);
   else
@@ -458,6 +467,9 @@ uint32_t CDMRTX::getFrameCount()
 void CDMRTX::setTrunking(bool trunking)
 {
   m_trunking = trunking;
+
+  if (!trunking)
+    m_controlChannel = false;
 }
 
 #endif
