@@ -36,7 +36,8 @@ m_count(0U),
 m_q0(0),
 m_q1(0),
 m_state(false),
-m_validCount(0U)
+m_validCount(0U),
+m_invalidCount(0U)
 {
 
 }
@@ -127,6 +128,8 @@ void CFMNoiseSquelch::reset()
   m_q1 = 0;
   m_state = false;
   m_count = 0U;
+  m_validCount = 0U;
+  m_invalidCount = 0U;
 }
 
 #endif
