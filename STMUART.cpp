@@ -61,7 +61,7 @@ void CSTMUART::handleIRQ()
   if (USART_GetITStatus(m_usart, USART_IT_RXNE)) {
     if(!m_rxFifo.isFull())
       m_rxFifo.put((uint8_t) USART_ReceiveData(m_usart));
-    USART_ClearITPendingBit(USART1, USART_IT_RXNE);
+    USART_ClearITPendingBit(m_usart, USART_IT_RXNE);
   }
 
   if (USART_GetITStatus(m_usart, USART_IT_TXE)) {
@@ -82,8 +82,12 @@ void CSTMUART::flush()
   if(m_usart == NULL)
     return;
 
-   // wait until the TXE shows the shift register is empty
-   while (USART_GetITStatus(m_usart, USART_FLAG_TXE))
+   // wait until the TX FIFO has drained
+   while (!m_txFifo.isEmpty())
+      ;
+
+   // wait until the TC flag shows the shift register is empty
+   while (USART_GetFlagStatus(m_usart, USART_FLAG_TC) == RESET)
       ;
 }
 

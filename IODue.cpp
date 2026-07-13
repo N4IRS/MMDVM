@@ -110,7 +110,7 @@ void CIO::initInt()
 #if !defined(USE_ALTERNATE_POCSAG_LEDS)
   pinMode(PIN_POCSAG, OUTPUT);
 #endif
-#if !defined(USE_ALTERNATE_POCSAG_LEDS)
+#if !defined(USE_ALTERNATE_FM_LEDS)
   pinMode(PIN_FM,     OUTPUT);
 #endif
 #endif
